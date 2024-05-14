@@ -1,3 +1,4 @@
+import 'package:first_course/pages/video/videoplayer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -34,6 +35,9 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: <Widget>[
+          ElevatedButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: ((context)=> VideoPlayer())));
+          }, child: Text('views')),
             Center(
             child: Container(
               margin: EdgeInsets.only(top:2),
