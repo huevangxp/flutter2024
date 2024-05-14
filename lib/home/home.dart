@@ -30,18 +30,18 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page', style: TextStyle(color: Colors.white),),
+        title: const Text('Home Page', style: TextStyle(color: Colors.white),),
         backgroundColor: Colors.teal,
       ),
       body: Column(
         children: <Widget>[
           ElevatedButton(onPressed: (){
             Navigator.push(context, MaterialPageRoute(builder: ((context)=> VideoPlayer())));
-          }, child: Text('views')),
+          }, child:const Text('Go to Video')),
             Center(
             child: Container(
-              margin: EdgeInsets.only(top:2),
-              padding: EdgeInsets.only(top:5, bottom: 5),
+              margin:const EdgeInsets.only(top:2),
+              padding:const EdgeInsets.only(top:5, bottom: 5),
               color: const Color.fromARGB(255, 48, 102, 97),
               child: const Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                         flex: 1,
                         child:Image.network('https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg',width: 100, height: 100,),
                       ),
-                      Flexible(
+                    const  Flexible(
                         flex: 2,
                         child: Text(
                           'The meaning of DESCRIPTION is an act of describing; specifically: discourse intended to give a mental image of something experienced.',
@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                           maxLines: 2,
                         ),
                       ),
-                      Flexible(
+                     const Flexible(
                         flex: 1,
                         child: Text('300000'),
                       ),
