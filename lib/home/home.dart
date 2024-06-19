@@ -1,3 +1,4 @@
+import 'package:first_course/Services/productServices.dart';
 import 'package:first_course/pages/video/videoplayer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,31 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final List<String> items = List<String>.generate(40, (i) => "Item $i");
 
+  String postTitle = 'No title yet';
+  var products = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _fetchPost();
+    super.initState();
+  }
+
+  void _fetchPost() async {
+    try {
+    var data = await ProductAPI.getProduct();
+
+    // print('----------------------->' + );
+    setState(() {
+      products = data['products'];
+    });
+    } catch (e) {
+      setState(() {
+        postTitle = 'Failed to load post';
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,41 +64,13 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: <Widget>[
-          // ElevatedButton(onPressed: (){
-          //   Navigator.push(context, MaterialPageRoute(builder: ((context)=> VideoPlayer())));
-          // }, child:const Text('Go to Video')),
-          Center(
-              child: Container(
-            margin: const EdgeInsets.only(top: 2),
-            padding: const EdgeInsets.only(top: 5, bottom: 5),
-            color: const Color.fromARGB(255, 48, 102, 97),
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  "Title",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
-                Text("Description",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white)),
-                Text("Price",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white)),
-              ],
-            ),
-          )),
+           
+         
           Expanded(
             child: ListView.builder(
-              itemCount: items.length,
+              itemCount: products.length,
               itemBuilder: (context, index) {
+                var product = products[index];
                 return GestureDetector(
                     onTap: () {
                       Navigator.push(
@@ -105,22 +103,22 @@ class _HomePageState extends State<HomePage> {
                             Flexible(
                               flex: 1,
                               child: Image.network(
-                                'https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg',
+                                product['images'][0],
                                 width: 100,
                                 height: 100,
                               ),
                             ),
-                            const Flexible(
+                             Flexible(
                               flex: 2,
                               child: Text(
-                                'The meaning of DESCRIPTION is an act of describing; specifically: discourse intended to give a mental image of something experienced.',
+                                product['title'],
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 2,
                               ),
                             ),
-                            const Flexible(
+                             Flexible(
                               flex: 1,
-                              child: Text('300000'),
+                              child: Text(product['price']),
                             ),
                           ],
                         ),
